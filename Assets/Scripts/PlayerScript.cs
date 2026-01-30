@@ -1,6 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class PlayerScript
+public class PlayerScript : MonoBehaviour
 {
-    
+    public float oxygenLevel = 0f;
+
+    public void MoveInDir(int  dir)
+    {
+
+    }
 }

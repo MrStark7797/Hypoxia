@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour {
     public GameObject player;
     public GameObject wall;
     public WallScript wallScript;
-    public GameObject wallTile;
+    public GameObject wallTileBad;
+    public GameObject wallTileGood;
 
     private void Awake()
     {
@@ -22,14 +23,19 @@ public class GameManager : MonoBehaviour {
 
     private void GenerateRow()
     {
-        Tile[] newTileSet = new Tile[8];
+        GameObject[] newTileSet = new GameObject[8];
         for (int i = 0; i < 8; i++) {
             int r = Random.Range(1, 4);
             if (r == 1)
             {
-
+                newTileSet[i] = wallTileBad;
+            }
+            else
+            {
+                newTileSet[i] = wallTileGood;
             }
         }
+        wallScript.AddRow(newTileSet);
     }
 
 }

@@ -1,6 +1,12 @@
 using UnityEngine;
 
-public class WallScript
+public class WallScript : MonoBehaviour
 {
     
+
+    public void AddRow(GameObject[] tiles)
+    {
+        
+    }
+
 }
