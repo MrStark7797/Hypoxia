@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -10,9 +12,42 @@ public class PlayerScript : MonoBehaviour
     public int lives = 5;
     public float speed;
     private SpriteRenderer spriteRenderer;
+    private bool isBoulder(Vector3 position, int direction)
+    {
+        GameObject square = null;
+        if (direction == 1 || direction == 3)
+        {
+            var row = GameObject.Find("row" + position.y.ToString());
+            Debug.Log("Direction 1 or 3");
+            if (direction == 1)
+            {
+                square = row.transform.GetChild((int)position.x + 3 + 1).gameObject;
+            }
+            else
+            {
+                square = row.transform.GetChild((int)position.x + 3 - 1).gameObject;
+            }
+        } else if (direction == 0) { 
+            var row = GameObject.Find("row" + (position.y+1).ToString());
+            square = row.transform.GetChild((int)position.x + 3).gameObject;
+        } else if(direction == 2)
+        {
+            var row = GameObject.Find("row" + (position.y - 1).ToString());
+            square = row.transform.GetChild((int)position.x + 3).gameObject;
+        }
+        if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     public void moveLeft()
     {
-        if (pos >= -2)
+        if (pos >= -2 && !isBoulder(transform.position, 3))
         {
             if (oxygenLevel <= 0)
             {
@@ -62,7 +97,7 @@ public class PlayerScript : MonoBehaviour
         // Breadcrumb 1: Did we enter the function?
         Debug.Log("Function called. Current pos: " + pos + " Oxygen: " + oxygenLevel);
 
-        if (pos <= 2)
+        if (pos <= 2 && !isBoulder(transform.position, 1))
         {
             if (oxygenLevel <= 0)
             {
@@ -79,7 +114,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Move failed: Already at right boundary (pos > 2)");
+            Debug.Log("Move failed: Already at right boundary (pos > 2) OR Move into Boulder");
         }
     }
     public void moveUp()
@@ -87,6 +122,10 @@ public class PlayerScript : MonoBehaviour
         if (oxygenLevel <= 0)
         {
             fall();
+        }
+        else if (isBoulder(transform.position, 0))
+        {
+            Debug.Log("Move is into Boulder");
         }
         else
         {
@@ -98,9 +137,17 @@ public class PlayerScript : MonoBehaviour
         }
     }
     public void moveDown() {
-        GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-        transform.position += new Vector3(0, -1, 0);
-        camera.transform.position = new Vector3(0, transform.position.y, -10);
+        if (isBoulder(transform.position, 2))
+        {
+            Debug.Log("Move is into Boulder");
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            transform.position += new Vector3(0, -1, 0);
+            camera.transform.position = new Vector3(0, transform.position.y, -10);
+        }
+        
     }
 
     public void Jump()
@@ -108,7 +155,7 @@ public class PlayerScript : MonoBehaviour
         if (oxygenLevel <= 2)
         {
             fall();
-        }
+        } 
         else
         {
             oxygenLevel-=3;
