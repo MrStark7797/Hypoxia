@@ -7,6 +7,10 @@ public class WallScript : MonoBehaviour {
 	public GameObject prefabBad1;
 	public GameObject prefabBad2;
 	public GameObject prefabSafe;
+	public GameObject prefabBad1ice;
+	public GameObject prefabBad2ice;
+	public GameObject prefabSafeice;
+	public bool isIce = false;
 	#endregion
 
 	public void Start() {
@@ -38,11 +42,23 @@ public class WallScript : MonoBehaviour {
 	private GameObject RandomPrefab() {
 		double randNormal = RandomNormal();
 		if (randNormal >= 0.66) {
-			return prefabBad2;
+			if (isIce) {
+				return prefabBad2ice;
+			} else {
+				return prefabBad2;
+			}
 		} else if (randNormal <= 0.33) {
-			return prefabBad1;
+			if (isIce) {
+				return prefabBad1ice;
+			} else {
+				return prefabBad1;
+			}
 		} else {
-			return prefabSafe;
+			if (isIce) {
+				return prefabSafeice;
+			} else {
+				return prefabSafe;
+			}
 		}
 	}
 
