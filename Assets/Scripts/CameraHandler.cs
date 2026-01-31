@@ -1,10 +1,11 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class CameraHandler : MonoBehaviour
 {
 	public GameObject player;
-
-    void Update() {
+    private void Update()
+    {
         transform.position = new Vector3(0,player.transform.position.y,0);
     }
 }
