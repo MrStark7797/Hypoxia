@@ -680,33 +680,9 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9beaed56-3141-4020-bc5f-547e44293be7
     m_ActionName: 'Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1506531743}
-        m_TargetAssemblyTypeName: Start, Assembly-CSharp
-        m_MethodName: OnSpace
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6d3c02fd-c384-46b6-92de-06657519ac94
-    m_ActionName: 'UI/Select[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d3bd869-3303-4fcf-bcaf-347a04b364f6
-    m_ActionName: 'UI/OptionUp[/Keyboard/w,/XInputControllerWindows/dpad/up]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 982998c0-0917-49b7-ae2b-a6416c5c7564
-    m_ActionName: 'UI/OptionDown[/Keyboard/s,/XInputControllerWindows/dpad/down]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1506531743
