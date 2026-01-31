@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public class PlayerScript : MonoBehaviour
 {
+    public GameObject camera;
     public int oxygenLevel;
     public int pos = 0;
     public int lives = 5;
@@ -92,11 +93,14 @@ public class PlayerScript : MonoBehaviour
             oxygenLevel--;
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
             transform.position += new Vector3(0, 1, 0);
+            camera.transform.position = new Vector3(0, transform.position.y, -10);
+            Debug.Log(camera.transform.position);
         }
     }
     public void moveDown() {
         GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         transform.position += new Vector3(0, -1, 0);
+        camera.transform.position = new Vector3(0, transform.position.y, -10);
     }
 
     public void Jump()
@@ -110,6 +114,7 @@ public class PlayerScript : MonoBehaviour
             oxygenLevel-=3;
             transform.position += new Vector3(0, 2, 0);
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            camera.transform.position = new Vector3(0, transform.position.y, -10);
         }
     }
 
