@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI o2Text;
+    public RectTransform o2LLevel;
     private SpriteRenderer spriteRenderer;
     void UpdateText(string message)
     {
@@ -34,8 +35,13 @@ public class PlayerScript : MonoBehaviour
             Canvas.ForceUpdateCanvases();
         }
     }
-    void UpdateOxygen(string message)
-    { Canvas.ForceUpdateCanvases(); if (o2Text != null) { o2Text.text = message; Canvas.ForceUpdateCanvases();} }
+    void UpdateOxygen(int oxygenLevel)
+    {
+        string message = "Oxygen" + oxygenLevel.ToString();
+        Canvas.ForceUpdateCanvases(); if (o2Text != null) { o2Text.text = message; Canvas.ForceUpdateCanvases();}
+        o2LLevel.sizeDelta = new Vector2(((float)oxygenLevel / 100f) * 290f, 65); 
+        Canvas.ForceUpdateCanvases();
+    }
     private bool isBoulder(Vector3 position, int direction)
     {
         GameObject square = null;
@@ -94,7 +100,7 @@ public class PlayerScript : MonoBehaviour
         oxygenLevel = 20;
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
-        UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
+        UpdateOxygen(oxygenLevel);
         currentCheckpoint = new Vector3(0, 0, -0.1f);
         GameObject.Instantiate(prefabPiton, new Vector3(transform.position.x, transform.position.y + 0.25f, -0.05f), Quaternion.identity, GameObject.Find("row0").transform.GetChild((int)transform.position.x + 3));
         moveCost = 1;
@@ -116,8 +122,9 @@ public class PlayerScript : MonoBehaviour
             CheckForOxygen(square);
             CheckCheckpoint(square);
             CheckPeak();
-            UpdateText("Level: " + transform.position.y.ToString());
-            UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
+            //UpdateText("Level: " + transform.position.y.ToString());
+            UpdateText(transform.position.y.ToString() + "m");
+            UpdateOxygen(oxygenLevel);
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 //Debug.Log(square.name);
@@ -145,8 +152,9 @@ public class PlayerScript : MonoBehaviour
         if (context.started)
         {
             Jump();
-            UpdateText("Level: " + transform.position.y.ToString());
-            UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
+            //UpdateText("Level: " + transform.position.y.ToString());
+            UpdateText(transform.position.y.ToString() + "m");
+            UpdateOxygen(oxygenLevel);
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
             CheckForOxygen(square);
@@ -300,7 +308,7 @@ public class PlayerScript : MonoBehaviour
 
         //Debug.Log($"Oxygen Increased: {oldLevel} -> {oxygenLevel}");
         Canvas.ForceUpdateCanvases();
-        UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
+        UpdateOxygen(oxygenLevel);
         Canvas.ForceUpdateCanvases();
     }
     private void CheckForOxygen(GameObject square)
@@ -342,7 +350,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (transform.position.y >= peakPos)
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Victory");
         }
     }
 }
