@@ -165,7 +165,13 @@ public class PlayerScript : MonoBehaviour
             transform.position += new Vector3(0, 1, 0);
             camera.transform.position = new Vector3(0, transform.position.y, -10);
             Debug.Log(camera.transform.position);
+			// generate new terrain
+			GameObject rowCheck = GameObject.Find("row" + ((int)transform.position.y + 2).ToString());
+			if (rowCheck != null) {
+				GameObject wall = GameObject.Find("WallObject").GetComponent<WallScript>().AddRow();
+			}
         }
+
     }
     public void moveDown() {
         if (isBoulder(transform.position, 2))
@@ -193,6 +199,20 @@ public class PlayerScript : MonoBehaviour
             transform.position += new Vector3(0, 2, 0);
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
             camera.transform.position = new Vector3(0, transform.position.y, -10);
+			// generate new terrain
+			GameObject rowCheck;
+			int rowPos;
+			GameObject wall = GameObject.Find("WallObject");
+			rowPos = (int)transform.position.y + 2 - 1;
+			rowCheck = GameObject.Find("row" + rowPos.ToString());
+			if (rowCheck != null) {
+				wall.GetComponent<WallScript>().AddRow();
+			}
+			rowPos = (int)transform.position.y + 2;
+			rowCheck = GameObject.Find("row" + rowPos.ToString());
+			if (rowCheck != null) {
+				wall.GetComponent<WallScript>().AddRow();
+			}
         }
     }
 
