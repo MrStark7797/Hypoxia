@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -45,6 +47,7 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
+    
     public void moveLeft()
     {
         if (pos >= -2 && !isBoulder(transform.position, 3))
@@ -82,6 +85,20 @@ public class PlayerScript : MonoBehaviour
 
             if (inputVec.y > 0.5f) moveUp();
             else if (inputVec.y < -0.5f) moveDown();
+            var row = GameObject.Find("row" + (transform.position.y).ToString());
+            var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
+            if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
+            {
+                Debug.Log(square.name);
+                if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
+                {
+                    fall();
+                }
+                else if (Random.Range(0, 2) == 0)
+                {
+                    fall();
+                }
+            }
         }
     }
 
@@ -90,6 +107,20 @@ public class PlayerScript : MonoBehaviour
         if (context.started)
         {
             Jump();
+            var row = GameObject.Find("row" + (transform.position.y).ToString());
+            var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
+            if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
+            {
+                Debug.Log(square.name);
+                if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
+                {
+                    fall();
+                }
+                else if (Random.Range(0, 2) == 0)
+                {
+                    fall();
+                }
+            }
         }
     }
     public void moveRight()
@@ -176,5 +207,6 @@ public class PlayerScript : MonoBehaviour
 
 
         }
+        SceneManager.LoadScene("Main");
     }
 }
