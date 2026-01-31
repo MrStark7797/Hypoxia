@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour
     private bool addRows = true;
     private float peakPos = Mathf.Infinity;
     private int moveCost;
-    public Light2D light2D;
+    
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI o2Text;
@@ -91,8 +91,6 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         lives = 5;
-        light2D = GetComponent<Light2D>();
-        light2D.enabled = false;
         oxygenLevel = 20;
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
@@ -286,14 +284,12 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator MoveToCheckpoint(Vector3 aimPosition)
     {
         GetComponent<SpriteRenderer>().sprite = perryFall;
-        light2D.enabled = true;
         while (transform.position != aimPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, aimPosition, Time.deltaTime);
             camera.transform.position = new Vector3(0, transform.position.y, -10);
             yield return new WaitForEndOfFrame();
         }
-        light2D.enabled=false;
         GetComponent<SpriteRenderer>().sprite = perryClimb;
     }
 
