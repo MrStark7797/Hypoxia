@@ -30,6 +30,7 @@ public class WallScript : MonoBehaviour {
 		parentRow.transform.position = new Vector3(0,0,0);
 		GameObject pref = prefabGrass;
 		for (int i = -3; i <= 3; i++) {
+			Debug.Log("creating at (" + i.ToString() + ",-1,0)");
 			Instantiate(pref,new Vector3(i,-1,0),Quaternion.identity,parentRow.transform);
 			Instantiate(pref,new Vector3(i,-2,0),Quaternion.identity,parentRow.transform);
 		}
