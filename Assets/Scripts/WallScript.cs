@@ -18,6 +18,10 @@ public class WallScript : MonoBehaviour {
 			AddRow(i);
 	}
 
+	public void SetIce() {
+		isIce = true;
+	}
+
     public void AddRow(int height=-1) {
 		// find player
 		var player = GameObject.Find("Player");
@@ -30,6 +34,8 @@ public class WallScript : MonoBehaviour {
 		} else {
 			yPos = (float)height;
 		}
+		if (yPos >= 50 && !isIce)
+			SetIce();
 		parentRow.name = "row" + yPos.ToString();
 		parentRow.transform.position = new Vector3(0,yPos,0);
 		for (int i = -3; i <= 3; i++) {
