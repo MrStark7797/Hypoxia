@@ -1,6 +1,5 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
-using Random;
 
 public class WallScript : MonoBehaviour {
 
@@ -44,11 +43,11 @@ public class WallScript : MonoBehaviour {
 		// Source - https://stackoverflow.com/a/218600␍
 		// Posted by yoyoyoyosef, modified by community. See post 'Timeline' for change history␍
 		// Retrieved 2026-01-31, License - CC BY-SA 3.0␍
-		Random rand = new Random(); //reuse this if you are generating many
+		System.Random rand = new System.Random(); //reuse this if you are generating many
 		double u1 = 1.0-rand.NextDouble(); //uniform(0,1] random doubles
 		double u2 = 1.0-rand.NextDouble();
-		double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
-			Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+		double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) *
+			System.Math.Sin(2.0 * System.Math.PI * u2); //random normal(0,1)
 		return randStdNormal;
 	}
 }
