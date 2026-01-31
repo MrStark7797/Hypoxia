@@ -34,7 +34,11 @@ public class WallScript : MonoBehaviour {
 		parentRow.transform.position = new Vector3(0,yPos,0);
 		for (int i = -3; i <= 3; i++) {
 			//choose a prefab
-			var pref = RandomPrefab();
+			GameObject pref;
+			if (yPos != 0) {
+				pref = RandomPrefab();
+			} else {
+				pref = isIce ? prefabSafeice : prefabSafe;
 			Instantiate(pref,new Vector3(i,yPos,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
 		}
     }
