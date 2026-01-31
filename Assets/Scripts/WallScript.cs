@@ -35,7 +35,7 @@ public class WallScript : MonoBehaviour {
 		for (int i = -3; i <= 3; i++) {
 			//choose a prefab
 			var pref = RandomPrefab();
-			Instantiate(pref,new Vector3(i,0,0),Quaternion.identity,parentRow.transform);
+			Instantiate(pref,new Vector3(i,0,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
 		}
     }
 
@@ -72,5 +72,10 @@ public class WallScript : MonoBehaviour {
 		double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) *
 			System.Math.Sin(2.0 * System.Math.PI * u2); //random normal(0,1)
 		return randStdNormal;
+	}
+
+	private Vector3 RandomEuler() {
+		int zRot = UnityEngine.Random.Range(0,3);
+		return new Vector3(0,0,zRot * 90);
 	}
 }
