@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
     public int oxygenLevel;
     public int pos = 0;
     public int lives = 5;
+    public float speed;
     private SpriteRenderer spriteRenderer;
     public void moveLeft()
     {
@@ -19,7 +20,7 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 pos -= 1;
-                transform.position += new Vector3(-1,0,0);
+                transform.position += new Vector3(-1, 0, 0);
                 oxygenLevel--;
                 Debug.Log("Moved Left. Position: " + pos);
             }
@@ -30,6 +31,7 @@ public class PlayerScript : MonoBehaviour
     {
         oxygenLevel = 10000000;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        speed = 0.5f;
     }
     public void moveRight()
     {
@@ -46,10 +48,7 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 pos += 1;
-                GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-                transform.position += new Vector3(0.5f, 0, 0);
-                GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-                transform.position += new Vector3(0.5f, 0, 0);
+                transform.position += new Vector3(1, 0, 0);
                 oxygenLevel--;
                 Debug.Log("SUCCESS! New pos: " + pos);
             }
