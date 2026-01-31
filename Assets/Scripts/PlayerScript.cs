@@ -209,13 +209,13 @@ public class PlayerScript : MonoBehaviour
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
 			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck == null && wall != null) {
-				wall.GetComponent<WallScript>().AddRow();
+				wall.GetComponent<WallScript>().AddRow(rowPos);
 			}
 			rowPos = (int)transform.position.y + 2;
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
 			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck == null && wall != null) {
-				wall.GetComponent<WallScript>().AddRow();
+				wall.GetComponent<WallScript>().AddRow(rowPos);
 			}
         }
     }
