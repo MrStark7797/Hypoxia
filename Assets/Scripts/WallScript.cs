@@ -39,6 +39,7 @@ public class WallScript : MonoBehaviour {
 				pref = RandomPrefab();
 			} else {
 				pref = isIce ? prefabSafeice : prefabSafe;
+			}
 			Instantiate(pref,new Vector3(i,yPos,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
 		}
     }
