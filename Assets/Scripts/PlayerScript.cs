@@ -22,8 +22,10 @@ public class PlayerScript : MonoBehaviour
     private bool addRows = true;
     private float peakPos = Mathf.Infinity;
     private int moveCost;
-    private float time;
-    
+
+    private bool running = false;
+    static float time;
+    public GameObject finalTimeText;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI o2Text;
@@ -49,7 +51,7 @@ public class PlayerScript : MonoBehaviour
 
     void UpdateTimeText(float time)
     {
-        timeText.text = "Time: " + time.ToString("0.00");
+        timeText.text = "Time: " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("0.00");
     }
 
     private bool isBoulder(Vector3 position, int direction)
@@ -116,12 +118,16 @@ public class PlayerScript : MonoBehaviour
         moveCost = 1;
         inputSystem = GetComponent<PlayerInput>();
         time = 0f;
+        running = true;
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
-        UpdateTimeText(time);
+        if (running)
+        {
+            time += Time.deltaTime;
+            UpdateTimeText(time);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -371,6 +377,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (transform.position.y >= peakPos)
         {
+            finalTimeText.GetComponent<TimeScript>().DisplayFinalTime(time);
             SceneManager.LoadScene("Victory");
         }
     }
