@@ -106,7 +106,7 @@ public class PlayerScript : MonoBehaviour
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 Debug.Log(square.name);
-                int randomInt = Random.Range(0, 2);
+                int randomInt = Random.Range(0, 5);
                 Debug.Log(randomInt);
                 if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
                 {
@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour
                 }
                 else if (square.name == "Rockface_cracked_0(Clone)" || square.name == "Ice_cracked_0(Clone)") { 
 
-                    if (randomInt == 1)
+                    if (randomInt == 0)
                     {
                         fall();
                     }
