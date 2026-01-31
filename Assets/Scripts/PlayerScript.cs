@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,15 @@ public class PlayerScript : MonoBehaviour
     public int pos = 0;
     public int lives = 5;
     public float speed;
+    public TextMeshProUGUI scoreText;
     private SpriteRenderer spriteRenderer;
+    void UpdateText(string message)
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = message;
+        }
+    }
     private bool isBoulder(Vector3 position, int direction)
     {
         GameObject square = null;
@@ -72,6 +81,7 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
         
+        
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -87,18 +97,24 @@ public class PlayerScript : MonoBehaviour
             else if (inputVec.y < -0.5f) moveDown();
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
+
+
+            UpdateText("Level: " + transform.position.y);
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 Debug.Log(square.name);
+                int randomInt = Random.Range(0, 2);
+                Debug.Log(randomInt);
                 if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
                 {
                     fall();
                 }
-                else if (Random.Range(0, 2) == 0)
+                else if (randomInt == 0)
                 {
                     fall();
                 }
             }
+
         }
     }
 
