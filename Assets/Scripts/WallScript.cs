@@ -11,16 +11,22 @@ public class WallScript : MonoBehaviour {
 
 	public void Start() {
 		for (int i = 0; i < 4; i++)
-			AddRow();
+			AddRow(i);
 	}
 
-    public void AddRow() {
+    public void AddRow(int height=-1) {
 		// find player
 		var player = GameObject.Find("Player");
 		Vector3 playerPos = player.transform.position;
 		// create parent row
 		var parentRow = new GameObject();
-		parentRow.name = "row" + playerPos.y.ToString();
+		if (height == -1) {
+			int yPos = playerPos.y + 2;
+		} else {
+			int yPos = height;
+		}
+		parentRow.name = "row" + yPos.ToString();
+		parentRow.transform.position = new Vector3(0,yPos,0);
 		for (int i = -3; i <= 3; i++) {
 			//choose a prefab
 			var pref = RandomPrefab();
