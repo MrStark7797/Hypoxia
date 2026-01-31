@@ -22,11 +22,13 @@ public class PlayerScript : MonoBehaviour
     private bool addRows = true;
     private float peakPos = Mathf.Infinity;
     private int moveCost;
+    private float time;
     
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI o2Text;
     public RectTransform o2LLevel;
+    public TextMeshProUGUI timeText;
     private SpriteRenderer spriteRenderer;
     void UpdateText(string message)
     {
@@ -44,6 +46,12 @@ public class PlayerScript : MonoBehaviour
         o2LLevel.sizeDelta = new Vector2(((float)oxygenLevel / 100f) * 290f, 65); 
         Canvas.ForceUpdateCanvases();
     }
+
+    void UpdateTimeText(float time)
+    {
+        timeText.text = "Time: " + time.ToString("0.00");
+    }
+
     private bool isBoulder(Vector3 position, int direction)
     {
         GameObject square = null;
@@ -107,7 +115,15 @@ public class PlayerScript : MonoBehaviour
         GameObject.Instantiate(prefabPiton, new Vector3(transform.position.x, transform.position.y + 0.25f, -0.05f), Quaternion.identity, GameObject.Find("row0").transform.GetChild((int)transform.position.x + 3));
         moveCost = 1;
         inputSystem = GetComponent<PlayerInput>();
+        time = 0f;
     }
+
+    private void Update()
+    {
+        time += Time.deltaTime;
+        UpdateTimeText(time);
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         // 'Started' is like 'wasPressedThisFrame'
