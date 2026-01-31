@@ -169,7 +169,7 @@ public class PlayerScript : MonoBehaviour
 			GameObject rowCheck = GameObject.Find("row" + ((int)transform.position.y + 2).ToString());
 			GameObject wall = GameObject.Find("WallObject");
 			Debug.Log("Found wall " + wall.name); 
-			if (rowCheck != null && wall != null) {
+			if (rowCheck == null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
         }
@@ -208,13 +208,13 @@ public class PlayerScript : MonoBehaviour
 			rowPos = (int)transform.position.y + 2 - 1;
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
 			Debug.Log("Found wall " + wall.name); 
-			if (rowCheck != null && wall != null) {
+			if (rowCheck == null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
 			rowPos = (int)transform.position.y + 2;
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
 			Debug.Log("Found wall " + wall.name); 
-			if (rowCheck != null && wall != null) {
+			if (rowCheck == null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
         }
