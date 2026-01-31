@@ -15,13 +15,15 @@ public class PlayerScript : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     void UpdateText(string message)
     {
+        Canvas.ForceUpdateCanvases();
         if (scoreText != null)
         {
             scoreText.text = message;
+            Canvas.ForceUpdateCanvases();
         }
     }
     void UpdateOxygen(string message)
-    { if (o2Text != null) { o2Text.text = message; } }
+    { Canvas.ForceUpdateCanvases(); if (o2Text != null) { o2Text.text = message; Canvas.ForceUpdateCanvases();} }
     private bool isBoulder(Vector3 position, int direction)
     {
         GameObject square = null;
@@ -79,7 +81,7 @@ public class PlayerScript : MonoBehaviour
         oxygenLevel = 20;
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
-        UpdateOxygen("Oxygen: " + oxygenLevel);
+        UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
 
 
     }
@@ -99,8 +101,8 @@ public class PlayerScript : MonoBehaviour
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
             CheckForOxygen(square);
 
-            UpdateText("Level: " + transform.position.y);
-            UpdateOxygen("Oxygen: " + oxygenLevel);
+            UpdateText("Level: " + transform.position.y.ToString());
+            UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 Debug.Log(square.name);
@@ -128,8 +130,8 @@ public class PlayerScript : MonoBehaviour
         if (context.started)
         {
             Jump();
-            UpdateText("Level: " + transform.position.y);
-            UpdateOxygen("Oxygen: " + oxygenLevel);
+            UpdateText("Level: " + transform.position.y.ToString());
+            UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
@@ -264,7 +266,9 @@ public class PlayerScript : MonoBehaviour
         oxygenLevel = Mathf.Min(100, oxygenLevel + (int)amount);
 
         Debug.Log($"Oxygen Increased: {oldLevel} -> {oxygenLevel}");
-        UpdateOxygen("Oxygen: " + oxygenLevel);
+        Canvas.ForceUpdateCanvases();
+        UpdateOxygen("Oxygen: " + oxygenLevel.ToString());
+        Canvas.ForceUpdateCanvases();
     }
     private void CheckForOxygen(GameObject square)
     {
