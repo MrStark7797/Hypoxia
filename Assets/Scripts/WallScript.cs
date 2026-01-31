@@ -20,10 +20,11 @@ public class WallScript : MonoBehaviour {
 		Vector3 playerPos = player.transform.position;
 		// create parent row
 		var parentRow = new GameObject();
+		float yPos;
 		if (height == -1) {
-			int yPos = playerPos.y + 2;
+			yPos = playerPos.y + 2;
 		} else {
-			int yPos = height;
+			yPos = (float)height;
 		}
 		parentRow.name = "row" + yPos.ToString();
 		parentRow.transform.position = new Vector3(0,yPos,0);
