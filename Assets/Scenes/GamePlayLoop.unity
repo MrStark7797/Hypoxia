@@ -587,7 +587,8 @@ GameObject:
   - component: {fileID: 1483881851}
   - component: {fileID: 1483881853}
   - component: {fileID: 1483881854}
-  m_Layer: 0
+  - component: {fileID: 1483881855}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -682,9 +683,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   camera: {fileID: 519420028}
   oxygenLevel: 0
-  pos: 0
   lives: 5
   speed: 0
+  currentCheckpoint: {x: 0, y: 0, z: 0}
+  prefabPiton: {fileID: 2202256224481589040, guid: 267acae38cbc3e04f851f8b5b410755b, type: 3}
+  perryClimb: {fileID: -2611412743251190275, guid: fa5062a5c5670f642a1a4bdad1a5fd22, type: 3}
+  perryFall: {fileID: -7339646988582458043, guid: c3e95188595717242a07af647aafbbd0, type: 3}
   scoreText: {fileID: 675186272}
   o2Text: {fileID: 2069132876}
 --- !u!114 &1483881854
@@ -744,11 +748,45 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9beaed56-3141-4020-bc5f-547e44293be7
     m_ActionName: 'Player/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d3c02fd-c384-46b6-92de-06657519ac94
+    m_ActionName: 'UI/Select[/Keyboard/space,/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d3bd869-3303-4fcf-bcaf-347a04b364f6
+    m_ActionName: 'UI/OptionUp[/Keyboard/w,/XInputControllerWindows/dpad/up]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 982998c0-0917-49b7-ae2b-a6416c5c7564
+    m_ActionName: 'UI/OptionDown[/Keyboard/s,/XInputControllerWindows/dpad/down]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 519420031}
+--- !u!95 &1483881855
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483881850}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8d5f50f0bfee5ee479893d009fef62c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1593576692
 GameObject:
   m_ObjectHideFlags: 0
