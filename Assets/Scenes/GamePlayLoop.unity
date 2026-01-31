@@ -413,9 +413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba560acfdcedf2429c4c5bcfcff4dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallScript
-  prefabBad1: {fileID: 0}
-  prefabBad2: {fileID: 0}
-  prefabSafe: {fileID: 0}
+  prefabBad1: {fileID: 9184484866298394952, guid: d62c2a21f90816f4982c89cc248a70d0, type: 3}
+  prefabBad2: {fileID: 377851589934745750, guid: c071cd66780806b4aaf493b5befbcb98, type: 3}
+  prefabSafe: {fileID: 6775680269488013574, guid: 76bf83c72c2738445a681b7eefdc7cbb, type: 3}
+  prefabBad1ice: {fileID: 1144667844475990694, guid: 05e9328342f8396468d051782a18fce4, type: 3}
+  prefabBad2ice: {fileID: 4067975796574016344, guid: fd08263b65f051d46a652af29b73b1d3, type: 3}
+  prefabSafeice: {fileID: 7503238297966184751, guid: 8af33271c56b9b545a028046ace32a6a, type: 3}
+  isIce: 0
 --- !u!4 &1016206466
 Transform:
   m_ObjectHideFlags: 0

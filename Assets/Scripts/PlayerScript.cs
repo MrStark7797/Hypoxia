@@ -91,10 +91,12 @@ public class PlayerScript : MonoBehaviour
         {
             oxygenLevel--;
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            transform.position += new Vector3(0, 1, 0);
         }
     }
     public void moveDown() {
         GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+        transform.position += new Vector3(0, -1, 0);
     }
 
     public void Jump()
@@ -106,6 +108,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             oxygenLevel-=3;
+            transform.position += new Vector3(0, 2, 0);
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }
     }
