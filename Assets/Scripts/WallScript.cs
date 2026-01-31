@@ -1,5 +1,6 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using Random;
 
 public class WallScript : MonoBehaviour {
 
