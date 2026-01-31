@@ -23,8 +23,8 @@ public class WallScript : MonoBehaviour {
 	public void SetIce() {
 		isIce = true;
 	}
-
-	public void DrawGrass() {
+    public GameObject prefabOxygen;
+    public void DrawGrass() {
 		var parentRow = new GameObject();
 		parentRow.name = "rowGrass";
 		parentRow.transform.position = new Vector3(0,0,0);
@@ -37,10 +37,9 @@ public class WallScript : MonoBehaviour {
 	}
 
     public void AddRow(int height=-1) {
-		// find player
 		var player = GameObject.Find("Player");
 		Vector3 playerPos = player.transform.position;
-		// create parent row
+
 		var parentRow = new GameObject();
 		float yPos;
 		if (height == -1) {
@@ -52,40 +51,48 @@ public class WallScript : MonoBehaviour {
 			SetIce();
 		parentRow.name = "row" + yPos.ToString();
 		parentRow.transform.position = new Vector3(0,yPos,0);
-		for (int i = -3; i <= 3; i++) {
-			//choose a prefab
-			GameObject pref;
-			if (yPos != 0) {
-				pref = RandomPrefab();
-			} else {
-				pref = isIce ? prefabSafeice : prefabSafe;
-			}
-			Instantiate(pref,new Vector3(i,yPos,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
-		}
+        for (int i = -3; i <= 3; i++)
+        {
+            GameObject pref;
+            if (yPos != 0)
+            {
+                RandomPrefab(i, yPos, parentRow.transform);
+            }
+            else
+            {
+                pref = isIce ? prefabSafeice : prefabSafe;
+                Instantiate(pref, new Vector3(i, yPos, 0), Quaternion.Euler(RandomEuler()), parentRow.transform);
+            }
+            
+        }
     }
 
-	private GameObject RandomPrefab() {
-		double randNormal = RandomNormal();
-		if (randNormal >= 0.66) {
-			if (isIce) {
-				return prefabBad2ice;
-			} else {
-				return prefabBad2;
-			}
-		} else if (randNormal <= -0.66) {
-			if (isIce) {
-				return prefabBad1ice;
-			} else {
-				return prefabBad1;
-			}
-		} else {
-			if (isIce) {
-				return prefabSafeice;
-			} else {
-				return prefabSafe;
-			}
-		}
-	}
+	private GameObject RandomPrefab(float x, float y, Transform parent) {
+        double randNormal = RandomNormal();
+        GameObject tileToReturn;
+        if (randNormal >= 0.66)
+        {
+            tileToReturn = isIce ? prefabBad2ice : prefabBad2;
+        }
+        else if (randNormal <= -0.66)
+        {
+            tileToReturn = isIce ? prefabBad1ice : prefabBad1;
+        }
+        else
+        {
+            tileToReturn = isIce ? prefabSafeice : prefabSafe;
+        }
+        GameObject spawnedTile = Instantiate(tileToReturn, new Vector3(x, y, 0), Quaternion.Euler(RandomEuler()), parent);
+        if (System.Math.Abs(randNormal) <= 0.12566)
+        {
+            if (prefabOxygen != null)
+            {
+                GameObject o2 = Instantiate(prefabOxygen, new Vector3(x, y, -0.1f), Quaternion.identity, spawnedTile.transform);
+                o2.name = "Oxygen_Unlooted";
+            }
+        }
+        return spawnedTile;
+    }
 
 	private double RandomNormal() {
 		// Source - https://stackoverflow.com/a/218600␍

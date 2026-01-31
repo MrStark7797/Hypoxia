@@ -1,11 +1,7 @@
-using System.Text.RegularExpressions;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -15,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     public int lives = 5;
     public float speed;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI o2Text;
     private SpriteRenderer spriteRenderer;
     void UpdateText(string message)
     {
@@ -23,6 +20,8 @@ public class PlayerScript : MonoBehaviour
             scoreText.text = message;
         }
     }
+    void UpdateOxygen(string message)
+    { if (o2Text != null) { o2Text.text = message; } }
     private bool isBoulder(Vector3 position, int direction)
     {
         GameObject square = null;
@@ -77,11 +76,12 @@ public class PlayerScript : MonoBehaviour
     }
     private void Start()
     {
-        oxygenLevel = 10000000;
+        oxygenLevel = 20;
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
-        
-        
+        UpdateOxygen("Oxygen: " + oxygenLevel);
+
+
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -97,9 +97,10 @@ public class PlayerScript : MonoBehaviour
             else if (inputVec.y < -0.5f) moveDown();
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
-
+            CheckForOxygen(square);
 
             UpdateText("Level: " + transform.position.y);
+            UpdateOxygen("Oxygen: " + oxygenLevel);
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 Debug.Log(square.name);
@@ -109,9 +110,13 @@ public class PlayerScript : MonoBehaviour
                 {
                     fall();
                 }
-                else if (randomInt == 0)
-                {
-                    fall();
+                else if (square.name == "Rockface_cracked_0(Clone)" || square.name == "Ice_cracked_0(Clone)") { 
+
+                    if (randomInt == 1)
+                    {
+                        fall();
+                    }
+                    
                 }
             }
 
@@ -123,11 +128,14 @@ public class PlayerScript : MonoBehaviour
         if (context.started)
         {
             Jump();
+            UpdateText("Level: " + transform.position.y);
+            UpdateOxygen("Oxygen: " + oxygenLevel);
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
                 Debug.Log(square.name);
+                CheckForOxygen(square);
                 if (square.name == "Rockface_boulder_0(Clone)" || square.name == "Ice_stalagmite_0(Clone)")
                 {
                     fall();
@@ -187,7 +195,8 @@ public class PlayerScript : MonoBehaviour
 			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck == null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
-			}
+               
+            }
         }
 
     }
@@ -248,5 +257,28 @@ public class PlayerScript : MonoBehaviour
 
         }
         SceneManager.LoadScene("Main");
+    }
+    public void AddOxygen(float amount)
+    {
+        int oldLevel = oxygenLevel;
+        oxygenLevel = Mathf.Min(100, oxygenLevel + (int)amount);
+
+        Debug.Log($"Oxygen Increased: {oldLevel} -> {oxygenLevel}");
+        UpdateOxygen("Oxygen: " + oxygenLevel);
+    }
+    private void CheckForOxygen(GameObject square)
+    {
+        OnTriggerEffect oxygen = square.GetComponentInChildren<OnTriggerEffect>();
+
+        if (oxygen != null)
+        {
+            Debug.Log("Oxygen found on square!");
+            AddOxygen(oxygen.oxygenRestoreAmount);
+            if (oxygen.prefabLooted != null)
+            {
+                Instantiate(oxygen.prefabLooted, oxygen.transform.position, Quaternion.identity, oxygen.transform.parent);
+            }
+            Destroy(oxygen.gameObject);
+        }
     }
 }
