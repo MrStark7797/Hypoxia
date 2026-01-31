@@ -32,6 +32,29 @@ public class PlayerScript : MonoBehaviour
         oxygenLevel = 10000000;
         spriteRenderer = GetComponent<SpriteRenderer>();
         speed = 0.5f;
+        
+    }
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        // 'Started' is like 'wasPressedThisFrame'
+        if (context.started)
+        {
+            Vector2 inputVec = context.ReadValue<Vector2>();
+            Debug.Log(inputVec);
+            if (inputVec.x < -0.5f) moveLeft();
+            else if (inputVec.x > 0.5f) moveRight();
+
+            if (inputVec.y > 0.5f) moveUp();
+            else if (inputVec.y < -0.5f) moveDown();
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Jump();
+        }
     }
     public void moveRight()
     {
@@ -99,34 +122,4 @@ public class PlayerScript : MonoBehaviour
 
         }
     }
-    public void Update()
-    {
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            moveLeft();
-            Debug.Log(transform.position);
-            
-        }
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            moveUp();
-            Debug.Log(transform.position);
-        }
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            moveDown();
-            Debug.Log(transform.position);
-        }
-        if (Keyboard.current.dKey.wasPressedThisFrame)
-        {
-            moveRight();
-            Debug.Log(transform.position);
-        }
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            Jump();
-            Debug.Log(transform.position);
-        }
-    }
-
 }
