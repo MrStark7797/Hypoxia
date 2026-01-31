@@ -168,7 +168,7 @@ public class PlayerScript : MonoBehaviour
 			// generate new terrain
 			GameObject rowCheck = GameObject.Find("row" + ((int)transform.position.y + 2).ToString());
 			GameObject wall = GameObject.Find("WallObject");
-			Debug.Log("Found row " + rowCheck.name + " and wall " + wall.name); 
+			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck != null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
@@ -207,13 +207,13 @@ public class PlayerScript : MonoBehaviour
 			GameObject wall = GameObject.Find("WallObject");
 			rowPos = (int)transform.position.y + 2 - 1;
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
-			Debug.Log("Found row " + rowCheck.name + " and wall " + wall.name); 
+			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck != null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
 			rowPos = (int)transform.position.y + 2;
 			rowCheck = GameObject.Find("row" + rowPos.ToString());
-			Debug.Log("Found row " + rowCheck.name + " and wall " + wall.name); 
+			Debug.Log("Found wall " + wall.name); 
 			if (rowCheck != null && wall != null) {
 				wall.GetComponent<WallScript>().AddRow();
 			}
