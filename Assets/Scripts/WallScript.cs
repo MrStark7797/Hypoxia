@@ -22,7 +22,7 @@ public class WallScript : MonoBehaviour {
 		// create parent row
 		var parentRow = new GameObject();
 		parentRow.name = "row" + playerPos.y.ToString();
-		for (int i = -3; i < =3; i++) {
+		for (int i = -3; i <= 3; i++) {
 			//choose a prefab
 			var pref = RandomPrefab();
 			Instantiate(pref,parentRow);
