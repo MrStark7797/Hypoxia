@@ -41,13 +41,13 @@ public class WallScript : MonoBehaviour {
 
 	private GameObject RandomPrefab() {
 		double randNormal = RandomNormal();
-		if (randNormal >= 0.66) {
+		if (randNormal >= 0.86) {
 			if (isIce) {
 				return prefabBad2ice;
 			} else {
 				return prefabBad2;
 			}
-		} else if (randNormal <= 0.33) {
+		} else if (randNormal <= 0.16) {
 			if (isIce) {
 				return prefabBad1ice;
 			} else {
