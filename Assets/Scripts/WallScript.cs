@@ -35,7 +35,7 @@ public class WallScript : MonoBehaviour {
 		for (int i = -3; i <= 3; i++) {
 			//choose a prefab
 			var pref = RandomPrefab();
-			Instantiate(pref,new Vector3(i,0,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
+			Instantiate(pref,new Vector3(i,yPos,0),Quaternion.Euler(RandomEuler()),parentRow.transform);
 		}
     }
 
