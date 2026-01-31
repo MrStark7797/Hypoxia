@@ -28,7 +28,7 @@ public class WallScript : MonoBehaviour {
 		}
     }
 
-	private int RandomPrefab() {
+	private GameObject RandomPrefab() {
 		double randNormal = RandomNormal();
 		if (randNormal >= 0.66) {
 			return prefabBad2;
