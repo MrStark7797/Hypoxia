@@ -9,6 +9,8 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class PlayerScript : MonoBehaviour
 {
+    public PlayerInput inputSystem;
+
     public GameObject camera;
     public int oxygenLevel;
     public int lives = 5;
@@ -104,6 +106,7 @@ public class PlayerScript : MonoBehaviour
         currentCheckpoint = new Vector3(0, 0, -0.1f);
         GameObject.Instantiate(prefabPiton, new Vector3(transform.position.x, transform.position.y + 0.25f, -0.05f), Quaternion.identity, GameObject.Find("row0").transform.GetChild((int)transform.position.x + 3));
         moveCost = 1;
+        inputSystem = GetComponent<PlayerInput>();
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -292,12 +295,14 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator MoveToCheckpoint(Vector3 aimPosition)
     {
         GetComponent<SpriteRenderer>().sprite = perryFall;
+        inputSystem.enabled = false;
         while (transform.position != aimPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, aimPosition, Time.deltaTime);
             camera.transform.position = new Vector3(0, transform.position.y, -10);
             yield return new WaitForEndOfFrame();
         }
+        inputSystem.enabled = true;
         GetComponent<SpriteRenderer>().sprite = perryClimb;
     }
 

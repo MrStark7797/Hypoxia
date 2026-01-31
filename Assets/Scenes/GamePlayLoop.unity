@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e82d512c6153b4cbf8beea74ddcc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
+  inputSystem: {fileID: 0}
   camera: {fileID: 519420028}
   oxygenLevel: 0
   lives: 5

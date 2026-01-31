@@ -49,6 +49,11 @@ public class WallScript : MonoBehaviour {
 		}
 		if (yPos >= 50 && !isIce)
 			SetIce();
+		if (yPos >= 100)
+		{
+			GeneratePeak(yPos+1);
+			player.GetComponent<PlayerScript>().ReachPeak(yPos);
+		}
 		parentRow.name = "row" + yPos.ToString();
 		parentRow.transform.position = new Vector3(0,yPos,0);
         for (int i = -3; i <= 3; i++)
@@ -92,6 +97,22 @@ public class WallScript : MonoBehaviour {
             }
         }
         return spawnedTile;
+    }
+
+	private void GeneratePeak(float yPos)
+	{
+		//Generate sky and peak...
+		for (float y = yPos; y <= yPos + 1f; y += 1f)
+		{
+            GameObject parentRow = new GameObject();
+            parentRow.name = "row" + yPos.ToString();
+            parentRow.transform.position = new Vector3(0, yPos, 0);
+            for (int i = -3; i <= 3; i++)
+			{
+				GameObject pref = isIce ? prefabSafeice : prefabSafe;
+				Instantiate(pref, new Vector3(i, y, 0), Quaternion.Euler(RandomEuler()), parentRow.transform);
+			}
+		}
     }
 
 	private double RandomNormal() {
