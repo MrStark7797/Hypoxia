@@ -4,6 +4,7 @@ using UnityEngine;
 public class WallScript : MonoBehaviour {
 
 	#region properties
+	public GameObject prefabGrass;
 	public GameObject prefabBad1;
 	public GameObject prefabBad2;
 	public GameObject prefabSafe;
@@ -16,10 +17,22 @@ public class WallScript : MonoBehaviour {
 	public void Start() {
 		for (int i = 0; i < 4; i++)
 			AddRow(i);
+		DrawGrass();
 	}
 
 	public void SetIce() {
 		isIce = true;
+	}
+
+	public void DrawGrass() {
+		var parentRow = new GameObject();
+		parentRow.name = "rowGrass";
+		parentRow.transform.position = new Vector3(0,0,0);
+		GameObject pref = prefabGrass;
+		for (int i = -3; i <= 3; i++) {
+			Instantiate(pref,new Vector3(i,-1,0),Quaternion.identity,parentRow.transform);
+			Instantiate(pref,new Vector3(i,-2,0),Quaternion.identity,parentRow.transform);
+		}
 	}
 
     public void AddRow(int height=-1) {
