@@ -87,7 +87,7 @@ public class WallScript : MonoBehaviour {
 			tileToReturn = isIce ? prefabSafeice : prefabSafe;
 		}
 		GameObject spawnedTile = Instantiate(tileToReturn, new Vector3(x, y, 0), Quaternion.Euler(RandomEuler()), parent);
-		if (System.Math.Abs(randNormal) <= 0.12566) {
+		if (System.Math.Abs(randNormal) <= 0.042) {
 			if (prefabOxygen != null) {
 				GameObject o2 = Instantiate(prefabOxygen, new Vector3(x, y, -0.1f), Quaternion.identity, spawnedTile.transform);
 				o2.name = "Oxygen_Unlooted";

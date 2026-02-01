@@ -4,6 +4,7 @@ public class RopeScript : MonoBehaviour {
 	#region properties
 	private LineRenderer lineRenderer;
 	public float width = 0.05f;
+	private Color color = new Color(142/255f, 76/255f, 29/255f);
 	#endregion
 
 	public void Start() {
@@ -12,8 +13,8 @@ public class RopeScript : MonoBehaviour {
 		lineRenderer.endWidth = width;
 		lineRenderer.positionCount = 3;
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.brown;
-		lineRenderer.endColor = Color.brown;
+        lineRenderer.startColor = color;
+		lineRenderer.endColor = color;
 		MoveLineRender();
 	}
 	public void Update() {

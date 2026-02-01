@@ -62,8 +62,11 @@ public class DataStorage : MonoBehaviour
 
             if (i < lines.Length)
             {
-                name = lines[i].Split(",")[0];
-                timeFloat = (float)Convert.ToDouble(lines[i].Split(",")[1]);
+                if (lines[i] != "")
+                {
+                    name = lines[i].Split(",")[0];
+                    timeFloat = (float)Convert.ToDouble(lines[i].Split(",")[1]);
+                }
             }
             
 

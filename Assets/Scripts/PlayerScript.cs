@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     public PlayerInput inputSystem;
 
     public GameObject camera;
+    public int cameraMoveSpeed = 7;
     public int oxygenLevel;
     public int lives = 5;
     public float speed;
@@ -31,6 +32,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject finalTimeText;
 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI checkpointDistText;
     public TextMeshProUGUI o2Text;
     public RectTransform o2LLevel;
     public TextMeshProUGUI timeText;
@@ -38,12 +40,21 @@ public class PlayerScript : MonoBehaviour
     void UpdateText(float y)
     {
         string message = y.ToString() + "m";
+        string message2 = "(" + ((int)(currentCheckpoint.y + 10 - y)).ToString() + "M to next checkpoint)";
+
+        scoreText.text = message;
+        checkpointDistText.text = message2;
+        Canvas.ForceUpdateCanvases();
+        
+
+        /*
         Canvas.ForceUpdateCanvases();
         if (scoreText != null)
         {
             scoreText.text = message;
             Canvas.ForceUpdateCanvases();
         }
+        */
     }
     void UpdateOxygen(int oxygenLevel)
     {
@@ -135,9 +146,11 @@ public class PlayerScript : MonoBehaviour
             time += Time.deltaTime;
             UpdateTimeText(time);
         }
+
+        camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(0, transform.position.y, -10), cameraMoveSpeed * Time.deltaTime);
     }
 
-    
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -248,7 +261,8 @@ public class PlayerScript : MonoBehaviour
             oxygenLevel -= 1 * moveCost;
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
             transform.position += new Vector3(0, 1, 0);
-            camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(0, transform.position.y, -10), cameraMoveSpeed * Time.deltaTime);
             //Debug.Log(camera.transform.position);
 			// generate new terrain
 			GameObject rowCheck = GameObject.Find("row" + ((int)transform.position.y + 2).ToString());
@@ -270,9 +284,10 @@ public class PlayerScript : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
             transform.position += new Vector3(0, -1, 0);
-            camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(0, transform.position.y, -10), cameraMoveSpeed * Time.deltaTime);
         }
-        
+
     }
 
     public void Jump()
@@ -286,9 +301,10 @@ public class PlayerScript : MonoBehaviour
             oxygenLevel-=3*moveCost;
             transform.position += new Vector3(0, 2, 0);
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-            camera.transform.position = new Vector3(0, transform.position.y, -10);
-			// generate new terrain
-			GameObject rowCheck;
+            //camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(0, transform.position.y, -10), cameraMoveSpeed * Time.deltaTime);
+            // generate new terrain
+            GameObject rowCheck;
 			int rowPos;
 			GameObject wall = GameObject.Find("WallObject");
 			rowPos = (int)transform.position.y + 2 - 1;
@@ -329,7 +345,8 @@ public class PlayerScript : MonoBehaviour
         while (transform.position != aimPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, aimPosition, Time.deltaTime);
-            camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = new Vector3(0, transform.position.y, -10);
+            //camera.transform.position = Vector3.MoveTowards(camera.transform.position, new Vector3(0, transform.position.y, -10), cameraMoveSpeed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
         inputSystem.enabled = true;

@@ -4,7 +4,7 @@ public class OnTriggerEffect : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject prefabLooted; // Assign "Corpse_Looted" prefab here
-    public float oxygenRestoreAmount = 20f;
+    public float oxygenRestoreAmount = 10f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
