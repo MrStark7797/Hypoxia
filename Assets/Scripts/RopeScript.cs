@@ -5,6 +5,7 @@ public class RopeScript : MonoBehaviour {
 	private LineRenderer lineRenderer;
 	public float width = 0.05f;
 	private Color color = new Color(142/255f, 76/255f, 29/255f);
+	public int ropeHealth = 100;
 	#endregion
 
 	public void Start() {
@@ -21,7 +22,6 @@ public class RopeScript : MonoBehaviour {
 		MoveLineRender();
 	}
 
-	#region LineRenderer
 	private void MoveLineRender() {
 		Vector3 perryPos = transform.position;
 		Vector3 checkpointPos = gameObject.GetComponent<PlayerScript>().currentCheckpoint;
@@ -31,6 +31,7 @@ public class RopeScript : MonoBehaviour {
 		lineRenderer.SetPosition(2, lastCheckpointPos);
 	}
 
-	//private void ColourLineRender() {}
-	#endregion
+	public void DamageRope() {
+		ropeHealth -= (transform.position.y - gameObject.GetComponent<PlayerScript>().currentCheckpoint.y);
+	}
 }

@@ -321,7 +321,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-
+			GetComponent<RopeScript>().DamageRope();
             StartCoroutine(MoveToCheckpoint(currentCheckpoint));
             //transform.position = currentCheckpoint;
             //camera.transform.position = new Vector3(0, transform.position.y, -10);
