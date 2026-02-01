@@ -32,6 +32,6 @@ public class RopeScript : MonoBehaviour {
 	}
 
 	public void DamageRope() {
-		ropeHealth -= (transform.position.y - gameObject.GetComponent<PlayerScript>().currentCheckpoint.y);
+		ropeHealth -= (int)(transform.position.y - gameObject.GetComponent<PlayerScript>().currentCheckpoint.y);
 	}
 }
