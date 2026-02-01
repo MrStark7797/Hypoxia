@@ -105,7 +105,7 @@ public class DataStorage : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             (string, int) s = scores[i];
-            if (s.Item2 != Mathf.Infinity)
+            if (s.Item2 != 0)
             {
                 int heightVal = s.Item2;
                 r += (i + 1).ToString() + ". " + s.Item1.PadRight(10) + "| " + heightVal.ToString() + "\n";
@@ -136,7 +136,7 @@ public class DataStorage : MonoBehaviour
             }
 
 
-            t[i] = (name, height);
+            t[i] = (name, heightVal);
         }
 
         return t;

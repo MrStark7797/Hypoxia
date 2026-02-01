@@ -100,6 +100,8 @@ public class MainMenuManager : MonoBehaviour
                     modeText.text = endlessMode ? "Mode: Endless" : "Mode: Standard";
                     leaderboardEndless.SetActive(endlessMode);
                     leaderboardStandard.SetActive(!endlessMode);
+                    endlessScoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayEndlessScores() + "</mspace>";
+                    standardScoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayStandardScores() + "</mspace>";
                 }
                 else
                 {
