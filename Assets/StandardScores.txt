@@ -1,0 +1,10 @@
+O,13.24
+W,24.44
+TheGoat,71.05
+S,78.20
+None,Infinity
+None,Infinity
+None,Infinity
+None,Infinity
+None,Infinity
+None,Infinity

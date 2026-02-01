@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: 0677ea3306be07648b8ec2a4a04c7b1f
+  - enabled: 1
+    path: Assets/Scenes/Defeat.unity
+    guid: f13fbb19b0fcae24d9f438f28fd9fbd7
+  - enabled: 1
+    path: Assets/Scenes/EndlessModeEnd.unity
+    guid: b48c0e3841c971d479e91ecb82ce0598
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

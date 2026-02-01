@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour
 
     private bool endlessMode = false;
     public TextMeshProUGUI modeText;
+    public GameObject leaderboardText;
 
     private void Start()
     {
@@ -73,7 +74,7 @@ public class MainMenuManager : MonoBehaviour
             }
             else if (buttonPointer == 2)
             {
-                SceneManager.LoadScene("Main");
+                leaderboardText.GetComponent<TextMeshProUGUI>().text = DataStorage.ReadStandardScoresWithReader();
             }
             else
             {

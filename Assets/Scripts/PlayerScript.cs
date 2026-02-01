@@ -307,8 +307,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (lives <= 1 || oxygenLevel <= 0)
         {
-            Debug.Log("AHHH");
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Defeat");
         }
         else
         {
@@ -383,7 +382,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (transform.position.y >= peakPos)
         {
-            finalTimeText.GetComponent<TimeScript>().DisplayFinalTime(time);
+            DataStorage.finalTime = time;
             SceneManager.LoadScene("Victory");
         }
     }
