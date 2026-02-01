@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class WallScript : MonoBehaviour {
 
+	private DataStorage DataStorage;
+
 	#region properties
 	public GameObject prefabGrass;
 	public GameObject prefabBad1;
@@ -17,6 +19,10 @@ public class WallScript : MonoBehaviour {
 	#endregion
 
 	public void Start() {
+
+		DataStorage = GameObject.FindGameObjectWithTag("Data").GetComponent<DataStorage>();
+		infMode = DataStorage.endlessMode;
+
 		for (int i = 0; i < 4; i++)
 			AddRow(i);
 		DrawGrass();

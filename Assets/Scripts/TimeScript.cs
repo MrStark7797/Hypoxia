@@ -15,6 +15,6 @@ public class TimeScript : MonoBehaviour
 
     public void DisplayFinalTime(float time)
     {
-        text.text = "Final Time: " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("0.00");
+        text.text = "Final Time: " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("00.00");
     }
 }

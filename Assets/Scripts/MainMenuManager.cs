@@ -19,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         DataStorage = GameObject.FindGameObjectWithTag("Data").GetComponent<DataStorage>();
+        modeText.text = DataStorage.endlessMode ? "Mode: Endless" : "Mode: Standard";
 
         HighlightButton(buttons[buttonPointer]);
     }
@@ -67,6 +68,7 @@ public class MainMenuManager : MonoBehaviour
             else if (buttonPointer == 1)
             {
                 endlessMode = !endlessMode;
+                DataStorage.endlessMode = endlessMode;
                 modeText.text = endlessMode ? "Mode: Endless" : "Mode: Standard";
             }
             else if (buttonPointer == 2)

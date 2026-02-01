@@ -53,7 +53,7 @@ public class PlayerScript : MonoBehaviour
 
     void UpdateTimeText(float time)
     {
-        timeText.text = "Time: " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("0.00");
+        timeText.text = "Time: " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("00.00");
     }
 
     private bool isBoulder(Vector3 position, int direction)

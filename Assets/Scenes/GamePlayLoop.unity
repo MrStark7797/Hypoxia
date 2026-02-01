@@ -1062,6 +1062,7 @@ MonoBehaviour:
   prefabSafeice: {fileID: 7503238297966184751, guid: 8af33271c56b9b545a028046ace32a6a, type: 3}
   prefabOxygen: {fileID: 392017993710317264, guid: e2df5b0576a5d6445a2c9d74bc119589, type: 3}
   isIce: 0
+  infMode: 0
 --- !u!4 &1016206466
 Transform:
   m_ObjectHideFlags: 0
@@ -1456,7 +1457,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402964242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
