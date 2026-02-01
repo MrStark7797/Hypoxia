@@ -86,10 +86,12 @@ public class DataStorage : MonoBehaviour
         {
             currentLeaderboard[9] = (name, finalTime);
             currentLeaderboard = currentLeaderboard.OrderByDescending(x => x.Item2).Reverse().ToArray();
-            foreach ((string, float) entry in currentLeaderboard)
-            {
-                finalString += entry.Item1 + "," + entry.Item2.ToString("0.00") + "\n";
-            }
+
+        }
+
+        foreach ((string, float) entry in currentLeaderboard)
+        {
+            finalString += entry.Item1 + "," + entry.Item2.ToString("0.00") + "\n";
         }
 
         File.WriteAllText("standardScores.txt", finalString);
@@ -149,15 +151,17 @@ public class DataStorage : MonoBehaviour
 
         string finalString = "";
 
-        if (finalTime < currentLeaderboard[9].Item2)
+        if (height > currentLeaderboard[9].Item2)
         {
             currentLeaderboard[9] = (name, height);
             currentLeaderboard = currentLeaderboard.OrderByDescending(x => x.Item2).ToArray();
-            foreach ((string, int) entry in currentLeaderboard)
-            {
-                finalString += entry.Item1 + "," + entry.Item2.ToString() + "\n";
-            }
         }
+
+        foreach ((string, int) entry in currentLeaderboard)
+        {
+            finalString += entry.Item1 + "," + entry.Item2.ToString() + "\n";
+        }
+        
 
         File.WriteAllText("endlessScores.txt", finalString);
     }
