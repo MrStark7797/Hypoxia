@@ -20,7 +20,7 @@ public class VictoryScript : MonoBehaviour
         eventSystem.SetSelectedGameObject(gameObject);
         dataStorage = GameObject.FindGameObjectWithTag("Data").GetComponent<DataStorage>();
 
-        timeText.text = ((int)dataStorage.finalTime / 60).ToString() + ":" + (dataStorage.finalTime % 60).ToString("00.00");
+        timeText.text = "Final Time: " + ((int)dataStorage.finalTime / 60).ToString() + ":" + (dataStorage.finalTime % 60).ToString("00.00");
 
     }
 

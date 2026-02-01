@@ -46,15 +46,6 @@ public class PlayerScript : MonoBehaviour
         checkpointDistText.text = message2;
         Canvas.ForceUpdateCanvases();
         
-
-        /*
-        Canvas.ForceUpdateCanvases();
-        if (scoreText != null)
-        {
-            scoreText.text = message;
-            Canvas.ForceUpdateCanvases();
-        }
-        */
     }
     void UpdateOxygen(int oxygenLevel)
     {
@@ -351,14 +342,16 @@ public class PlayerScript : MonoBehaviour
         }
         inputSystem.enabled = true;
         GetComponent<SpriteRenderer>().sprite = perryClimb;
+        UpdateText(transform.position.y);
     }
 
-    public void AddOxygen(float amount)
+    public void AddOxygen(int amount)
     {
         int oldLevel = oxygenLevel;
-        oxygenLevel = Mathf.Min(100, oxygenLevel + (int)amount);
+        Debug.Log(amount);
+        oxygenLevel = Mathf.Min(100, oxygenLevel + amount);
 
-        //Debug.Log($"Oxygen Increased: {oldLevel} -> {oxygenLevel}");
+        Debug.Log($"Oxygen Increased: {oldLevel} -> {oxygenLevel}");
         Canvas.ForceUpdateCanvases();
         UpdateOxygen(oxygenLevel);
         Canvas.ForceUpdateCanvases();

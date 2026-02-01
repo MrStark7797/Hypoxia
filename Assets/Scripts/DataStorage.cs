@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,11 +50,7 @@ public class DataStorage : MonoBehaviour
     {
         (string, float)[] t = new (string, float)[10];
 
-        StreamReader reader = new StreamReader("Assets/StandardScores.txt");
-
-        string[] lines = reader.ReadToEnd().Split("\n");
-
-        reader.Close();
+        string[] lines = standardScores.text.Split("\n");
        
         for (int i = 0; i < 10; i++ )
         {
@@ -81,17 +78,19 @@ public class DataStorage : MonoBehaviour
 
         (string, float)[] currentLeaderboard = ReadStandardScores();
 
+        string finalString = "";
+
         if (finalTime < currentLeaderboard[9].Item2)
         {
             currentLeaderboard[9] = (name, finalTime);
             currentLeaderboard = currentLeaderboard.OrderByDescending(x => x.Item2).Reverse().ToArray();
-            StreamWriter writer = new StreamWriter("Assets/StandardScores.txt", false);
             foreach ((string, float) entry in currentLeaderboard)
             {
-                writer.WriteLine(entry.Item1 + "," + entry.Item2.ToString("0.00"));
+                finalString += entry.Item1 + "," + entry.Item2.ToString("0.00") + "\n";
             }
-            writer.Close();
         }
+
+        standardScores = new TextAsset(finalString);
     }
 
 }
