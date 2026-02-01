@@ -51,7 +51,7 @@ public class WallScript : MonoBehaviour {
 
 		if (yPos >= 50 && !isIce)
 			SetIce();
-		if (yPos >= 20) {
+		if (yPos >= 100) {
 			GeneratePeak(yPos+1);
 			player.GetComponent<PlayerScript>().ReachPeak(yPos);
 		}

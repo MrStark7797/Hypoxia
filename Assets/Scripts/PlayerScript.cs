@@ -9,6 +9,8 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class PlayerScript : MonoBehaviour
 {
+    private DataStorage DataStorage;
+
     public PlayerInput inputSystem;
 
     public GameObject camera;
@@ -23,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     private float peakPos = Mathf.Infinity;
     private int moveCost;
 
-    private bool running = false;
+    public bool running = false;
     static float time;
     public GameObject finalTimeText;
 
@@ -108,6 +110,8 @@ public class PlayerScript : MonoBehaviour
     }
     private void Start()
     {
+        DataStorage = GameObject.FindGameObjectWithTag("Data").GetComponent<DataStorage>();
+
         lives = 5;
         oxygenLevel = 20;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -129,6 +133,8 @@ public class PlayerScript : MonoBehaviour
             UpdateTimeText(time);
         }
     }
+
+    
 
     public void OnMove(InputAction.CallbackContext context)
     {
