@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     public int lives = 5;
     public float speed;
     public Vector3 currentCheckpoint;
+	public Vector3 lastCheckpoint;
     public GameObject prefabPiton;
     public Sprite perryClimb;
     public Sprite perryFall;
@@ -118,6 +119,7 @@ public class PlayerScript : MonoBehaviour
         speed = 0.5f;
         UpdateOxygen(oxygenLevel);
         currentCheckpoint = new Vector3(0, 0, -0.1f);
+		lastCheckpoint = currentCheckpoint;
         GameObject.Instantiate(prefabPiton, new Vector3(transform.position.x, transform.position.y + 0.25f, -0.05f), Quaternion.identity, GameObject.Find("row0").transform.GetChild((int)transform.position.x + 3));
         moveCost = 1;
         inputSystem = GetComponent<PlayerInput>();
@@ -367,6 +369,7 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.y - currentCheckpoint.y >= 10 && (square.name == "Rockface1_0(Clone)" || square.name == "Ice1_0(Clone)"))
         {
             if(transform.position.y % 50 < currentCheckpoint.y % 50) { moveCost++; }
+			lastCheckpoint = currentCheckpoint;
             currentCheckpoint = transform.position;
             GameObject.Instantiate(prefabPiton, new Vector3(transform.position.x, transform.position.y+0.25f, -0.05f), Quaternion.identity, square.transform);
         }
