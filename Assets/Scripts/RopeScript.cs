@@ -33,5 +33,7 @@ public class RopeScript : MonoBehaviour {
 
 	public void DamageRope() {
 		ropeHealth -= (int)(transform.position.y - gameObject.GetComponent<PlayerScript>().currentCheckpoint.y);
+		if (ropeHealth <= 0) 
+			SceneManager.LoadScene("Defeat");
 	}
 }
