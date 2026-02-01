@@ -34,7 +34,14 @@ public class RopeScript : MonoBehaviour {
 
 	public void DamageRope() {
 		ropeHealth -= (int)(transform.position.y - gameObject.GetComponent<PlayerScript>().currentCheckpoint.y);
-		if (ropeHealth <= 0) 
-			SceneManager.LoadScene("Defeat");
+		if (ropeHealth <= 0) {
+			GameObject.FindObjectWithTag("Data").GetComponent<DataStorage>().height = transform.position.y;
+			if (GameObject.FindObjectWithTag("Data").GetComponent<DataStorage>().endlessMode
+					&& transform.position.y >= 100)
+				SceneManager.LoadScene("EndlessModeEnd");
+			} else {
+				SceneManager.LoadScene("Defeat");
+			}
+		}
 	}
 }
