@@ -13,6 +13,7 @@ public class WallScript : MonoBehaviour {
 	public GameObject prefabSafeice;
 	public GameObject prefabOxygen;
 	public bool isIce = false;
+	public bool infMode = false;
 	#endregion
 
 	public void Start() {
@@ -51,7 +52,7 @@ public class WallScript : MonoBehaviour {
 
 		if (yPos >= 50 && !isIce)
 			SetIce();
-		if (yPos >= 100) {
+		if (yPos >= 100 && !infMode) {
 			GeneratePeak(yPos+1);
 			player.GetComponent<PlayerScript>().ReachPeak(yPos);
 		}
