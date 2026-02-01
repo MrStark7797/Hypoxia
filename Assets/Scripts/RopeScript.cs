@@ -3,13 +3,16 @@ using UnityEngine;
 public class RopeScript : MonoBehaviour {
 	#region properties
 	private LineRenderer lineRenderer;
+	public double width = 0.05f;
 	#endregion
 
 	public void Start() {
 		lineRenderer = gameObject.AddComponent<LineRenderer>();
-		lineRenderer.startWidth = 0.2f;
-		lineRenderer.endWidth = 0.2f;
+		lineRenderer.startWidth = width;
+		lineRenderer.endWidth = width;
 		lineRenderer.positionCount = 3;
+		lineRenderer.startColor = Color.brown;
+		lineRenderer.endColor = Color.brown;
 		MoveLineRender();
 	}
 	public void Update() {
@@ -28,3 +31,4 @@ public class RopeScript : MonoBehaviour {
 
 	//private void ColourLineRender() {}
 	#endregion
+}
