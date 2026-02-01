@@ -317,7 +317,16 @@ public class PlayerScript : MonoBehaviour
     {
         if (lives <= 1 || oxygenLevel <= 0)
         {
-            SceneManager.LoadScene("Defeat");
+            DataStorage.height = (int)transform.position.y;
+
+            if (DataStorage.endlessMode && transform.position.y > 100)
+            {
+                SceneManager.LoadScene("EndlessModeEnd");
+            }
+            else
+            {
+                SceneManager.LoadScene("Defeat");
+            }
         }
         else
         {

@@ -13,6 +13,7 @@ public class DataStorage : MonoBehaviour
     public TextAsset standardScores;
     public TextAsset endlessScores;
     public float finalTime;
+    public int height;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class DataStorage : MonoBehaviour
         }
 
         finalTime = 0f;
+        height = 0;
 
         DontDestroyOnLoad(this);
     }
@@ -50,7 +52,7 @@ public class DataStorage : MonoBehaviour
     {
         (string, float)[] t = new (string, float)[10];
 
-        string[] lines = standardScores.text.Split("\n");
+        string[] lines = File.ReadAllLines("standardScores.txt");
        
         for (int i = 0; i < 10; i++ )
         {
@@ -90,7 +92,74 @@ public class DataStorage : MonoBehaviour
             }
         }
 
-        standardScores = new TextAsset(finalString);
+        File.WriteAllText("standardScores.txt", finalString);
+    }
+
+
+    public string DisplayEndlessScores()
+    {
+        (string, int)[] scores = ReadEndlessScores();
+
+        string r = "";
+
+        for (int i = 0; i < 10; i++)
+        {
+            (string, int) s = scores[i];
+            if (s.Item2 != Mathf.Infinity)
+            {
+                int heightVal = s.Item2;
+                r += (i + 1).ToString() + ". " + s.Item1.PadRight(10) + "| " + heightVal.ToString() + "\n";
+            }
+        }
+
+        return r;
+    }
+
+    public (string, int)[] ReadEndlessScores()
+    {
+        (string, int)[] t = new (string, int)[10];
+
+        string[] lines = File.ReadAllLines("endlessScores.txt");
+
+        for (int i = 0; i < 10; i++)
+        {
+            string name = "None";
+            int heightVal = 0;
+
+            if (i < lines.Length)
+            {
+                if (lines[i] != "")
+                {
+                    name = lines[i].Split(",")[0];
+                    heightVal = (int)Convert.ToDouble(lines[i].Split(",")[1]);
+                }
+            }
+
+
+            t[i] = (name, height);
+        }
+
+        return t;
+    }
+
+    public void WriteEndlessScores(string name)
+    {
+
+        (string, int)[] currentLeaderboard = ReadEndlessScores();
+
+        string finalString = "";
+
+        if (finalTime < currentLeaderboard[9].Item2)
+        {
+            currentLeaderboard[9] = (name, height);
+            currentLeaderboard = currentLeaderboard.OrderByDescending(x => x.Item2).ToArray();
+            foreach ((string, int) entry in currentLeaderboard)
+            {
+                finalString += entry.Item1 + "," + entry.Item2.ToString() + "\n";
+            }
+        }
+
+        File.WriteAllText("endlessScores.txt", finalString);
     }
 
 }
