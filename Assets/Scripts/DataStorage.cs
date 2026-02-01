@@ -26,11 +26,22 @@ public class DataStorage : MonoBehaviour
     }
 
 
-    public string ReadStandardScoresWithReader()
+    public string DisplayStandardScores()
     {
-        StreamReader reader = new StreamReader("Assets/StandardScores.txt");
-        string r = reader.ReadToEnd();
-        reader.Close();
+        (string, float)[] scores = ReadStandardScores();
+
+        string r = "";
+
+        for (int i = 0; i < 10; i++) 
+        { 
+            (string, float) s = scores[i];
+            if (s.Item2 != Mathf.Infinity)
+            {
+                float time = s.Item2;
+                r += (i+1).ToString() + ". " + s.Item1.PadRight(10) + "| " + ((int)time / 60).ToString() + ":" + (time % 60).ToString("00.00") + "\n";
+            }
+        }
+
         return r;
     }
 

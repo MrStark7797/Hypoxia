@@ -15,7 +15,10 @@ public class MainMenuManager : MonoBehaviour
 
     private bool endlessMode = false;
     public TextMeshProUGUI modeText;
-    public GameObject leaderboardText;
+    public GameObject menuObject;
+    public GameObject leaderboardObject;
+    public GameObject scoresText;
+    private bool inLeaderboard;
 
     private void Start()
     {
@@ -23,6 +26,8 @@ public class MainMenuManager : MonoBehaviour
         modeText.text = DataStorage.endlessMode ? "Mode: Endless" : "Mode: Standard";
 
         HighlightButton(buttons[buttonPointer]);
+
+        inLeaderboard = false;
     }
 
     private void HighlightButton(GameObject button)
@@ -62,23 +67,35 @@ public class MainMenuManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (buttonPointer == 0)
+            if (inLeaderboard)
             {
-                SceneManager.LoadScene("GamePlayLoop");
-            }
-            else if (buttonPointer == 1)
-            {
-                endlessMode = !endlessMode;
-                DataStorage.endlessMode = endlessMode;
-                modeText.text = endlessMode ? "Mode: Endless" : "Mode: Standard";
-            }
-            else if (buttonPointer == 2)
-            {
-                leaderboardText.GetComponent<TextMeshProUGUI>().text = DataStorage.ReadStandardScoresWithReader();
+                menuObject.SetActive(true);
+                leaderboardObject.SetActive(false);
+                inLeaderboard = false;
             }
             else
             {
-                Application.Quit();
+                if (buttonPointer == 0)
+                {
+                    SceneManager.LoadScene("GamePlayLoop");
+                }
+                else if (buttonPointer == 1)
+                {
+                    endlessMode = !endlessMode;
+                    DataStorage.endlessMode = endlessMode;
+                    modeText.text = endlessMode ? "Mode: Endless" : "Mode: Standard";
+                }
+                else if (buttonPointer == 2)
+                {
+                    menuObject.SetActive(false);
+                    leaderboardObject.SetActive(true);
+                    inLeaderboard = true;
+                    scoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayStandardScores() + "</mspace>";
+                }
+                else
+                {
+                    Application.Quit();
+                }
             }
         }
     }
