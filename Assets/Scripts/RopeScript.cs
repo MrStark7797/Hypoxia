@@ -3,7 +3,7 @@ using UnityEngine;
 public class RopeScript : MonoBehaviour {
 	#region properties
 	private LineRenderer lineRenderer;
-	public double width = 0.05f;
+	public float width = 0.05f;
 	#endregion
 
 	public void Start() {
@@ -11,7 +11,8 @@ public class RopeScript : MonoBehaviour {
 		lineRenderer.startWidth = width;
 		lineRenderer.endWidth = width;
 		lineRenderer.positionCount = 3;
-		lineRenderer.startColor = Color.brown;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.brown;
 		lineRenderer.endColor = Color.brown;
 		MoveLineRender();
 	}

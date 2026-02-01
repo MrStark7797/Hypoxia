@@ -1427,6 +1427,7 @@ GameObject:
   - component: {fileID: 1483881856}
   - component: {fileID: 1483881854}
   - component: {fileID: 1483881855}
+  - component: {fileID: 1483881857}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1526,6 +1527,7 @@ MonoBehaviour:
   lives: 5
   speed: 0
   currentCheckpoint: {x: 0, y: 0, z: 0}
+  lastCheckpoint: {x: 0, y: 0, z: 0}
   prefabPiton: {fileID: 8824484541483774032, guid: 267acae38cbc3e04f851f8b5b410755b, type: 3}
   perryClimb: {fileID: -2611412743251190275, guid: fa5062a5c5670f642a1a4bdad1a5fd22, type: 3}
   perryFall: {fileID: -7339646988582458043, guid: c3e95188595717242a07af647aafbbd0, type: 3}
@@ -1720,6 +1722,19 @@ MonoBehaviour:
   buttonDefault: {fileID: -7214667100172943851, guid: 00689b0ae361d354d95f736789584dbd, type: 3}
   buttonHighlighted: {fileID: 1433736619419235477, guid: 12dd4e1e645a1784f963da5d34a28c14, type: 3}
   finalTime: {fileID: 0}
+--- !u!114 &1483881857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483881850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1508e221900d34c499ffb560850adf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RopeScript
+  width: 0.05
 --- !u!1 &1593576692
 GameObject:
   m_ObjectHideFlags: 0

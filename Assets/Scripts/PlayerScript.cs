@@ -35,8 +35,9 @@ public class PlayerScript : MonoBehaviour
     public RectTransform o2LLevel;
     public TextMeshProUGUI timeText;
     private SpriteRenderer spriteRenderer;
-    void UpdateText(string message)
+    void UpdateText(float y)
     {
+        string message = y.ToString() + "m";
         Canvas.ForceUpdateCanvases();
         if (scoreText != null)
         {
@@ -156,7 +157,7 @@ public class PlayerScript : MonoBehaviour
             CheckCheckpoint(square);
             CheckPeak();
             //UpdateText("Level: " + transform.position.y.ToString());
-            UpdateText(transform.position.y.ToString() + "m");
+            UpdateText(transform.position.y);
             UpdateOxygen(oxygenLevel);
             if (square.name != "Rockface1_0(Clone)" && square.name != "Ice1_0(Clone)")
             {
@@ -186,7 +187,7 @@ public class PlayerScript : MonoBehaviour
         {
             Jump();
             //UpdateText("Level: " + transform.position.y.ToString());
-            UpdateText(transform.position.y.ToString() + "m");
+            UpdateText(transform.position.y);
             UpdateOxygen(oxygenLevel);
             var row = GameObject.Find("row" + (transform.position.y).ToString());
             var square = row.transform.GetChild((int)transform.position.x + 3).gameObject;
