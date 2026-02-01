@@ -17,8 +17,13 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI modeText;
     public GameObject menuObject;
     public GameObject leaderboardObject;
-    public GameObject scoresText;
+    public GameObject leaderboardStandard;
+    public GameObject leaderboardEndless;
+    public GameObject standardScoresText;
+    public GameObject endlessScoresText;
     private bool inLeaderboard;
+    public GameObject[] leaderboardButtons;
+    private int leaderboardPointer = 0;
 
     private void Start()
     {
@@ -47,9 +52,19 @@ public class MainMenuManager : MonoBehaviour
     {
         if (context.started)
         {
-            UnHighlightButton(buttons[buttonPointer]);
-            buttonPointer = buttonPointer == 0 ? 3 : buttonPointer - 1;
-            HighlightButton(buttons[buttonPointer]);
+            if (inLeaderboard)
+            {
+                UnHighlightButton(leaderboardButtons[leaderboardPointer]);
+                leaderboardPointer = (leaderboardPointer + 1) % 2;
+                HighlightButton(leaderboardButtons[leaderboardPointer]);
+            }
+            else
+            {
+                UnHighlightButton(buttons[buttonPointer]);
+                buttonPointer = buttonPointer == 0 ? 3 : buttonPointer - 1;
+                HighlightButton(buttons[buttonPointer]);
+            }
+            
         }
     }
 
@@ -57,9 +72,18 @@ public class MainMenuManager : MonoBehaviour
     {
         if (context.started)
         {
-            UnHighlightButton(buttons[buttonPointer]);
-            buttonPointer = buttonPointer == 3 ? 0 : buttonPointer + 1;
-            HighlightButton(buttons[buttonPointer]);
+            if (inLeaderboard)
+            {
+                UnHighlightButton(leaderboardButtons[leaderboardPointer]);
+                leaderboardPointer = (leaderboardPointer + 1) % 2;
+                HighlightButton(leaderboardButtons[leaderboardPointer]);
+            }
+            else
+            {
+                UnHighlightButton(buttons[buttonPointer]);
+                buttonPointer = buttonPointer == 3 ? 0 : buttonPointer + 1;
+                HighlightButton(buttons[buttonPointer]);
+            }
         }
     }
 
@@ -69,9 +93,20 @@ public class MainMenuManager : MonoBehaviour
         {
             if (inLeaderboard)
             {
-                menuObject.SetActive(true);
-                leaderboardObject.SetActive(false);
-                inLeaderboard = false;
+                if (leaderboardPointer == 0)
+                {
+                    endlessMode = !endlessMode;
+                    DataStorage.endlessMode = endlessMode;
+                    modeText.text = endlessMode ? "Mode: Endless" : "Mode: Standard";
+                    leaderboardEndless.SetActive(endlessMode);
+                    leaderboardStandard.SetActive(!endlessMode);
+                }
+                else
+                {
+                    menuObject.SetActive(true);
+                    leaderboardObject.SetActive(false);
+                    inLeaderboard = false;
+                }
             }
             else
             {
@@ -89,8 +124,22 @@ public class MainMenuManager : MonoBehaviour
                 {
                     menuObject.SetActive(false);
                     leaderboardObject.SetActive(true);
+                    HighlightButton(leaderboardButtons[leaderboardPointer]);
+                    UnHighlightButton(leaderboardButtons[(leaderboardPointer + 1) % 2]);
+                    if (endlessMode)
+                    {
+                        leaderboardEndless.SetActive(true);
+                        leaderboardStandard.SetActive(false);
+                        endlessScoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayEndlessScores() + "</mspace>";
+                    }
+                    else
+                    {
+                        leaderboardEndless.SetActive(false);
+                        leaderboardStandard.SetActive(true);
+                        standardScoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayStandardScores() + "</mspace>";
+                    }
                     inLeaderboard = true;
-                    scoresText.GetComponent<TextMeshProUGUI>().text = "<mspace=0.5em>" + DataStorage.DisplayStandardScores() + "</mspace>";
+                    
                 }
                 else
                 {
